@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تماس تصویری سریع</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body { background: #111; color: #fff; height: 100dvh; display: flex; flex-direction: column; }
+    .videos { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    #remoteVideo { width: 100%; height: 100%; object-fit: cover; background: #1a1a1a; }
+    #localVideo { position: absolute; bottom: 16px; left: 16px; width: 140px; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; border: 2px solid #444; transform: scaleX(-1); }
+    .status { position: absolute; top: 16px; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 20px; font-size: 14px; z-index: 10; }
+    .controls { display: flex; gap: 12px; justify-content: center; padding: 16px; background: #1c1c1c; }
+    button { padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; background: #333; color: #fff; }
+    button.off { background: #c0392b; }
+    button.copy { background: #2980b9; }
+  </style>
+</head>
+<body>
+  <div class="videos">
+    <div id="status" class="status">در حال آماده‌سازی دوربین...</div>
+    <video id="remoteVideo" autoplay playsinline></video>
+    <video id="localVideo" autoplay playsinline muted></video>
+  </div>
+
+  <div class="controls">
+    <button id="copyBtn" class="copy">کپی لینک دعوت</button>
+    <button id="micBtn">میکروفون: روشن</button>
+    <button id="camBtn">دوربین: روشن</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
