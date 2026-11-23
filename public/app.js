@@ -23,22 +23,22 @@ const rtcConfig = {
       {
         urls: "turn:global.relay.metered.ca:80",
         username: "61c77a8612d1c3b3aad21696",
-        credential: "<PASSWORD>",
+        credential: "Z/JkBvQCcxvIjpM5",
       },
       {
         urls: "turn:global.relay.metered.ca:80?transport=tcp",
         username: "61c77a8612d1c3b3aad21696",
-        credential: "<PASSWORD>",
+        credential: "Z/JkBvQCcxvIjpM5",
       },
       {
         urls: "turn:global.relay.metered.ca:443",
         username: "61c77a8612d1c3b3aad21696",
-        credential: "<PASSWORD>",
+        credential: "Z/JkBvQCcxvIjpM5",
       },
     {
         urls: "turns:global.relay.metered.ca:443?transport=tcp",
         username: "61c77a8612d1c3b3aad21696",
-        credential: "<PASSWORD>",
+        credential: "Z/JkBvQCcxvIjpM5",
       },
     { urls: "stun:stun1.l.google.com:19302" },
   ],
