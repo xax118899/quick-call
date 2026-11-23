@@ -17,6 +17,29 @@ if (!roomId) {
 const rtcConfig = {
   iceServers: [
     { urls: "stun:stun.l.google.com:19302" },
+    {
+        urls: "stun:stun.relay.metered.ca:80",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80",
+        username: "61c77a8612d1c3b3aad21696",
+        credential: "<PASSWORD>",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80?transport=tcp",
+        username: "61c77a8612d1c3b3aad21696",
+        credential: "<PASSWORD>",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:443",
+        username: "61c77a8612d1c3b3aad21696",
+        credential: "<PASSWORD>",
+      },
+    {
+        urls: "turns:global.relay.metered.ca:443?transport=tcp",
+        username: "61c77a8612d1c3b3aad21696",
+        credential: "<PASSWORD>",
+      },
     { urls: "stun:stun1.l.google.com:19302" },
   ],
 };
@@ -32,7 +55,7 @@ async function init() {
       audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
     });
     localVideo.srcObject = localStream;
-    statusEl.textContent = "لینک را برای دوستت بفرست و منتظر بمان...";
+    statusEl.textContent = "لینکو برام بفرست و منتظر بمون تا بیام گل";
     socket.emit("join-room", roomId);
   } catch (err) {
     statusEl.textContent = "خطا در دسترسی به دوربین یا میکروفون (مطمئن شو روی HTTPS هستی).";
@@ -59,10 +82,10 @@ function createPeerConnection() {
 
   pc.oniceconnectionstatechange = () => {
     if (pc.iceConnectionState === "failed") {
-      statusEl.textContent = "در حال تلاش برای اتصال مجدد...";
+      statusEl.textContent = "داره بهش فشار میاد یکم دیگه وصله...";
       pc.restartIce();
     } else if (pc.iceConnectionState === "disconnected") {
-      statusEl.textContent = "اتصال ناپایدار است...";
+      statusEl.textContent = "اتصال ناپایداره گل احتمالا دوباره نت رفته بخوابه...";
     } else if (pc.iceConnectionState === "connected") {
       statusEl.textContent = "متصل شد";
     }
@@ -71,7 +94,7 @@ function createPeerConnection() {
 
 // نفر اول وقتی نفر دوم وارد می‌شود، Offer می‌سازد
 socket.on("peer-joined", async () => {
-  statusEl.textContent = "دوستت وارد شد، در حال برقراری تماس...";
+  statusEl.textContent = "وارد شدم بذار وصل شم...";
   createPeerConnection();
   const offer = await pc.createOffer();
   await pc.setLocalDescription(offer);
@@ -104,11 +127,11 @@ socket.on("signal", async (data) => {
 });
 
 socket.on("room-full", () => {
-  statusEl.textContent = "ظرفیت این اتاق پر است (حداکثر ۲ نفر).";
+  statusEl.textContent = "ظرفیت این اتاق پره (حداکثر ۲ نفر).";
 });
 
 socket.on("peer-left", () => {
-  statusEl.textContent = "دوستت تماس را ترک کرد. منتظر ورود مجدد...";
+  statusEl.textContent = "رفتم هواخوری، الان میام!...";
   remoteVideo.srcObject = null;
   if (pc) {
     pc.close();
